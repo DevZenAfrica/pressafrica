@@ -1,0 +1,28 @@
+<div *ngIf="data" class="max-w-sm bg-white mb-2 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <a href="#" *ngIf="data.photo">
+    <img class="rounded-t-lg" src="{{data.photo}}" alt="" />
+  </a>
+  <div class="p-5">
+    <a>
+      <h5 class="mb-3 text-sm font-bold tracking-tight text-gray-900 dark:text-white">{{getValueTraduct(data.title)}}</h5>
+    </a>
+    <form class="mb-3 font-normal text-gray-700 dark:text-gray-400" *ngIf="oldReponse !== -2">
+      <div class="flex items-center mb-2" *ngFor="let choix of data.customResponses; let i = index">
+        <input [checked]="oldReponse === i" (change)="updateResponse(i)" id="choix_{{data.id}}_{{i}}" type="radio" value="{{i}}" name="choix_{{data.id}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <label for="choix_{{data.id}}_{{i}}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ getValueTraduct(choix)}}</label>
+      </div>
+    </form>
+
+    <!--p *ngIf="!currentUser" class="text-red-400">
+      {{'8.4' | translate}}
+    </p-->
+
+    <a *ngIf="reponse !== oldReponse" (click)="saveResponse()" class="inline-flex items-center py-2 px-3 mr-3 text-sm font-medium text-center text-white bg-blue-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      {{'8.5' | translate}}
+    </a>
+
+    <a routerLink="../../poll/{{idPoll}}" class="inline-flex items-center py-2 text-sm font-medium text-center text-orange-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      {{'8.6' | translate}}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <img src="assets/img/logo_symbole.svg" class="inline-block h-9 pl-4"/>
+    </ion-buttons>
+    <ion-title>{{'1.1-13' | translate}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="mv" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="mv">
+        <ion-label>{{'9.1' | translate}}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="tmc">
+        <ion-label>{{'9.2' | translate}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-choose-category></app-choose-category>
+  <section [ngSwitch]="currentSegment">
+    <div *ngSwitchCase="'mv'">
+      <app-print-most-headline-viewed idCategory="{{categorieSelect}}"></app-print-most-headline-viewed>
+    </div>
+
+    <div *ngSwitchCase="'tmc'">
+      <app-print-most-headline-commented idCategory="{{categorieSelect}}"></app-print-most-headline-commented>
+    </div>
+  </section>
+</ion-content>

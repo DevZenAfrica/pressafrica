@@ -1,0 +1,143 @@
+<div class="py-5 px-3 max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" *ngIf="skin === 'block' && data">
+  <a href="headline/{{idHeadline}}" class="block h-60 max-w-full overflow-auto overscroll-y-none overscroll-x-none overscroll-none justify-center">
+    <img class="rounded-t-lg inline-flex" [src]="data && data.image ? data.image : '...'" alt="Loading...">
+  </a>
+  <div routerLink="../../headline/{{idHeadline}}" class="grid grid-cols-2 text-gray-500 py-1">
+    <small class="ion-text-left truncate">{{getValueTraduct(data.title)}}</small>
+    <small class="ion-text-right truncate">{{data.dateParution | date : 'd/M/yyyy'}}</small>
+  </div>
+  <div class="flex items-center ion-align-items-center" *ngIf="currentEditor">
+    <ng-container *ngIf="currentUser">
+      <svg (click)="likeCurrentEditor()" *ngIf="!currentUser.editorsLikes.includes(currentEditor.id)" xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+      <svg (click)="likeCurrentEditor()" *ngIf="currentUser.editorsLikes.includes(currentEditor.id)" xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+      </svg>
+    </ng-container>
+    <div routerLink="../../search/{{currentEditor.id}}" class="grid grid-cols-1">
+      <span class="text-gray-800 text-sm font-semibold truncate">{{getValueTraduct(currentEditor.name)}}</span>
+    </div>
+  </div>
+  <div class=" mt-2">
+    <div class="flex items-center space-x-3">
+      <ng-container *ngIf="currentUser">
+        <svg (click)="likeCurrentHeadline()" *ngIf="!data.likes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+        </svg>
+        <svg (click)="likeCurrentHeadline()" *ngIf="data.likes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+        </svg>
+      </ng-container>
+
+      <ng-container>
+        <svg *ngIf="currentUser && !currentUser.archives.includes(data.id)" (click)="archiveCurrentHeadline()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+        </svg>
+        <svg *ngIf="currentUser && currentUser.archives.includes(data.id)" (click)="archiveCurrentHeadline()" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+        </svg>
+      </ng-container>
+      <svg routerLink="../../headline/{{idHeadline}}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <span class="flex items-center ml-2 items-center" routerLink="../../headline/{{idHeadline}}?comment">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        {{currentComment.length}}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="skin === 'list' && data" class="mb-3 p-2 max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="flex">
+    <a class="w-1/3 bg-cover bg-landscape block" href="headline/{{idHeadline}}">
+      <img class="rounded-lg" [src]="data && data.image ? data.image : '...'" alt="Loading...">
+    </a>
+    <div class="w-2/3 p-4">
+      <div class="flex items-center ion-align-items-center" *ngIf="currentEditor">
+        <ng-container *ngIf="currentUser">
+          <svg (click)="likeCurrentEditor()" *ngIf="!currentUser.editorsLikes.includes(currentEditor.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <svg (click)="likeCurrentEditor()" *ngIf="currentUser.editorsLikes.includes(currentEditor.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+          </svg>
+        </ng-container>
+        <a class="text-gray-500 text-sm truncate" routerLink="../../search/{{currentEditor.id}}">{{currentEditor.name}}</a> <br>
+      </div>
+      <div class="mb-2">
+        <span class="flex items-center text-gray-500 text-sm" routerLink="../../headline/{{idHeadline}}?comment">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          {{data.dateParution | date : 'd/M/yyyy'}}
+        </span>
+      </div>
+      <div [innerHTML]="getValueTraduct(data.content).replace('/<[^>]*>/g', '').length > 90 ? getValueTraduct(data.content).replace('/<[^>]*>/g', '').substring(0, 90) + '...' : getValueTraduct(data.content)" class="text-gray-900 text-sm">
+      </div>
+    </div>
+  </div>
+  <div class="flex">
+    <div>
+      <div class="flex items-center space-x-3 text-gray-500">
+        <ng-container>
+          <svg (click)="likeCurrentHeadline()" *ngIf="currentUser && !data.likes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+          </svg>
+          <svg (click)="likeCurrentHeadline()" *ngIf="currentUser && data.likes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-600" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+          </svg>
+        </ng-container>
+
+        <ng-container>
+          <svg *ngIf="currentUser && !currentUser.archives.includes(data.id)" (click)="archiveCurrentHeadline()" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          </svg>
+          <svg *ngIf="currentUser && currentUser.archives.includes(data.id)" (click)="archiveCurrentHeadline()" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+          </svg>
+        </ng-container>
+        <svg routerLink="../../headline/{{idHeadline}}" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <span class="flex items-center ml-5 items-center text-gray-500 text-sm" routerLink="../../headline/{{idHeadline}}?comment">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          {{currentComment.length}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(!data) && skin === 'list'" role="status" class="mb-3 p-2 max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="flex">
+    <div class="w-1/3 flex justify-center items-center bg-gray-300 rounded dark:bg-gray-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+      </svg>
+    </div>
+    <div class="w-2/3 p-4">
+      <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+      <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(!data) && skin === 'block'" role="status" class="py-5 px-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <div class="flex justify-center items-center mb-4 h-48 bg-gray-300 rounded dark:bg-gray-700">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-60 max-w-full text-gray-200 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+    </svg>
+  </div>
+  <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+</div>

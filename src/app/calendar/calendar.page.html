@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <img src="assets/img/logo_symbole.svg" class="inline-block h-9 pl-4"/>
+    </ion-buttons>
+    <ion-title>{{'1.1-11' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="p-3">
+    <h3 class="font-semibold text-xl mb-3">{{'7.1' | translate}}</h3>
+    <div class="flex">
+      <button (click)="previewDate()" class="inline-flex items-center px-3 text-sm text-white bg-blue-900 rounded-l-md border border-r-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+        ◄
+      </button>
+      <input id="dateSelect" (ngModelChange)="searchFromDate($event)" *ngIf="etatSelection" ngModel type="date" class="rounded-none bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Today">
+      <input (click)="etatSelection = !etatSelection" *ngIf="!etatSelection" type="text" class="rounded-none bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{texteSelection}}">
+      <button [disabled]="(getDateNumber(currentDate)) === getDateNumber(dateToday)" (click)="followDate()" class="disabled:opacity-50 inline-flex items-center px-3 text-sm text-white bg-blue-900 rounded-r-md border border-l-0 border-gray-300 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+      ►
+      </button>
+    </div>
+  </div>
+
+  <div class="p-3">
+    <h3 class="font-semibold text-xl">{{'7.2' | translate}}</h3>
+    <div class="py-3" *ngIf="headlines.length === 0">
+      <p>{{'7.3' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="p-3">
+    <app-miniature-headline skin="list" [data]="headline" [idHeadline]="headline.id" *ngFor="let headline of headlines"></app-miniature-headline>
+  </div>
+</ion-content>

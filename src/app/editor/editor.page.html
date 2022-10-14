@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <img src="assets/img/logo_symbole.svg" class="inline-block h-9 pl-4"/>
+    </ion-buttons>
+    <ion-title>{{'11.1' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-choose-category></app-choose-category>
+
+  <div class="p-3">
+    <h3 class="font-semibold text-xl mb-3">{{'11.2' | translate}}</h3>
+
+    <div *ngFor="let type of typeEditeurs" class="max-w-sm bg-white mb-2 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-5">
+        <a>
+          <h5 class="mb-3 text-sm font-bold tracking-tight text-gray-900 dark:text-white">{{getValueTraduct(type.name)}}</h5>
+        </a>
+        <div class="flex items-center mb-2" *ngIf="editeurs.length === 0">
+          {{'11.3' | translate}}
+        </div>
+        <ng-container *ngFor="let editor of editeurs">
+          <div class="flex items-center mb-2" *ngIf="type.id === editor.idType">
+            • <a routerLink="../../search/{{editor.id}}" class="hover:text-orange-600 ml-1 text-sm font-medium text-gray-900 dark:text-gray-300">{{editor.name}}</a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ion-content>

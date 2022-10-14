@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <img src="assets/img/logo_complet.svg" class="inline-block h-9"/>
+    </ion-title>
+    <ion-buttons slot="end" class="ion-no-padding">
+      <ion-button class="ion-no-padding" routerLink="../../search">
+        <ion-icon name="search" size="large"></ion-icon>
+      </ion-button>
+      <app-choose-country></app-choose-country>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <app-choose-category></app-choose-category>
+
+  <app-print-all-coverage idCategory="{{categorieSelect}}"></app-print-all-coverage>
+
+  <app-print-top-pools></app-print-top-pools>
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header [translucent]="true" class="ion-no-border-lol">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{'10.3' | translate}}
+    </ion-title>
+  </ion-toolbar>
+  <ion-progress-bar color="secondary" *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+</ion-header>
+
+<ion-content>
+  <div class="p-3">
+    <h3 class="font-semibold text-xl">{{'7.2' | translate}}</h3>
+    <div class="py-3" *ngIf="headlines.length === 0">
+      <p>{{'7.3' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="p-3">
+    <app-miniature-headline skin="list" [data]="headline" [idHeadline]="headline.id" *ngFor="let headline of headlines"></app-miniature-headline>
+  </div>
+</ion-content>

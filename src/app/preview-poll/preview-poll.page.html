@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Poll result</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="currentPoll">
+  <div class="p-3">
+    <h3 class="font-semibold text-xl">{{getValueTraduct(currentPoll.title)}}</h3>
+  </div>
+
+  <div class="overflow-x-auto relative sm:rounded-lg p-3">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <tbody>
+      <tr class="{{ isPair(i) ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:border-gray-700'}} border-b" *ngFor="let reponse of currentPoll.customResponses; let i = index" >
+      <tr class="{{ isPair(i) ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:border-gray-700'}} border-b" *ngFor="let reponse of currentPoll.customResponses; let i = index" >
+        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          {{getValueTraduct(reponse)}}
+        </th>
+        <td class="py-4 px-6">
+          {{getNombreWitchChoice(i+1).length > 0 ? getValeurEntiere((getNombreWitchChoice(i+1).length * 100) / (currentPoll.choice1.length + currentPoll.choice2.length + currentPoll.choice3.length + currentPoll.choice4.length + currentPoll.choice5.length)) + '%' : '/'}}
+        </td>
+        <td class="py-4 px-6">
+          {{getNombreWitchChoice(i+1).length}} Votes
+        </td>
+      </tr>
+      <tr class="{{ isPair(currentPoll.customResponses.length) ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:border-gray-700'}} border-b">
+        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Total
+        </th>
+        <td class="py-4 px-6">
+        </td>
+        <td class="py-4 px-6">
+          {{currentPoll.choice1.length + currentPoll.choice2.length + currentPoll.choice3.length + currentPoll.choice4.length + currentPoll.choice5.length}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ion-content>

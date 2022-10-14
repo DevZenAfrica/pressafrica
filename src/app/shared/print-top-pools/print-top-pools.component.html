@@ -1,0 +1,4 @@
+<div class="p-3" *ngIf="polls.length > 0">
+  <h3 class="font-semibold text-xl pb-3">{{'12.1' | translate}}</h3>
+  <app-miniature-poll [idPoll]="poll.id" [data]="poll" *ngFor="let poll of polls"></app-miniature-poll>
+</div>

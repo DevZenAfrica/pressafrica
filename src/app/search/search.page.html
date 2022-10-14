@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-searchbar (ionChange)="reloadSearch()" [(ngModel)]="currentSearch" (ionCancel)="backToPreview()" [placeholder]="'1.1-5' | translate" showCancelButton="always"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-choose-category></app-choose-category>
+
+  <div class="p-3">
+    <h3 class="font-semibold text-xl">{{'6.1' | translate}}</h3>
+    <div class="py-3" *ngIf="headlines.length === 0">
+      <p>{{'6.2' | translate}}</p>
+    </div>
+    <div class="py-3">
+      <app-miniature-headline skin="list" idHeadline="{{hl.id}}" [data]="hl" *ngFor="let hl of headlines"></app-miniature-headline>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header [translucent]="true" class="ion-no-border-lol">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{'10.1' | translate}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <form #form="ngForm" (ngSubmit)="save()">
+        <ion-button type="submit" [disabled]="isLoading || form.invalid">
+          {{'10.8' | translate}}
+        </ion-button>
+      </form>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-progress-bar color="secondary" *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="currentUser">
+  <form #form="ngForm" (ngSubmit)="save()">
+    <ion-list class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">{{'10.9' | translate}} <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input name="userName" [disabled]="isLoading" [(ngModel)]="currentUser.userName" required inputmode="text" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

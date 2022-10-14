@@ -1,0 +1,36 @@
+<ion-button id="btn-choose-country" (click)="printPop()" class="ion-no-padding space-x-1">
+  <img *ngIf="paySelect && paySelect.flag" [src]="paySelect ? paySelect.flag : ''" width="30px" class="inline-block" height="30px"/>
+  <svg xmlns="http://www.w3.org/2000/svg" *ngIf="!paySelect || paySelect && !paySelect.flag" class="h-8 w-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+  </svg>
+  <span>&#9660;</span>
+</ion-button>
+
+<ion-popover trigger="btn-choose-country" id="modalPopOver" side="left" alignment="start" size="auto">
+  <ng-template>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-list-header>
+          <div  class="grid grid-cols-2 pb-3">
+            <h5 class="{{isLoading ? 'animate-pulse' : ''}} ion-text-left">{{'1.1-6' | translate}}</h5>
+            <span class="ion-text-right">
+                <svg xmlns="http://www.w3.org/2000/svg" (click)="closePopOver()" class="h-6 w-6 inline-flex" id="close-pop-over" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </span>
+          </div>
+        </ion-list-header>
+        <div class="grid grid-cols-2 border-t border-gray-400">
+          <ion-item [disabled]="isLoading" routerLink="{{null}}" (click)="saveCountry(pays)" lines="none" *ngFor="let pays of inputPays">
+            <ion-avatar slot="start" class="h-4 w-4 ion-no-margin">
+              <img src="{{pays.flag}}"/>
+            </ion-avatar>
+            <ion-label class="pl-1">
+              <span style="font-size: 13px;" [class]="pays.id === idPaySelect ? 'text-orange-600 font-bold' : ''"> {{pays.name}}</span>
+            </ion-label>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

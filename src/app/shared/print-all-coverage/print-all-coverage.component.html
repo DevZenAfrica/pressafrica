@@ -1,0 +1,3 @@
+<section *ngFor="let coverage of listeCoverage">
+  <app-print-x-coverage idCategory="{{!idCat ? '' : idCat}}" idCoverage="{{coverage.id}}" [data]="coverage"></app-print-x-coverage>
+</section>

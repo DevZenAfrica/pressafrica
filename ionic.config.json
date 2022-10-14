@@ -1,0 +1,7 @@
+{
+  "name": "ayoba-news",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

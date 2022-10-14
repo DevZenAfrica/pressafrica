@@ -1,0 +1,15 @@
+<div class="grid grid-cols-7 ion-padding-vertical">
+  <div class="col-span-6">
+    <ion-slides pager="false" [options]="slideOpts">
+      <ion-slide>
+        <span (click)="setCategorieSelectGlobal('')" class="{{ categorieSelect === '' ? 'bg-orange-600 text-white' : 'bg-white text-gray-400'}} px-9 ion-text-capitalize text-sm font-medium px-2.5 rounded">{{'1.1-8' | translate}}</span>
+      </ion-slide>
+      <ion-slide *ngFor="let cat of categoriesEditors; let i = index">
+        <span (click)="setCategorieSelectGlobal(cat.id)" class="{{ cat.id === categorieSelect ? 'bg-orange-600 text-white' : 'bg-white text-gray-400'}} px-9 ion-text-capitalize text-sm font-medium px-2.5 rounded">{{getValueTraduct(cat.name)}}</span>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div class="col-span-1 ion-text-center text-gray-500 rotate-90 ">
+    <ion-icon name="options-sharp" (click)="presentAllCategorie()"></ion-icon>
+  </div>
+</div>

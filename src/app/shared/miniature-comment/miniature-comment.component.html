@@ -1,0 +1,48 @@
+<div class="grid grid-cols-8 gap-1 my-2" *ngIf="data">
+  <div class="col-span-1">
+    <img [src]="currentUser && currentUser.photo ? currentUser.photo : 'assets/img/user.png'" width="30px" class="inline-block rounded-full" height="30px"/>
+  </div>
+  <div class="col-span-7 text-sm pb-2">
+    <div class="grid grid-cols-2">
+      <span class="ion-text-left font-bold capitalize">{{currentUserComment ? currentUserComment.userName : '...'}}</span>
+      <span *ngIf="currentUser" class="ion-text-right items-center ion-align-items-center">
+        <ng-container>
+          <svg (click)="like()" *ngIf="!data.likes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+          </svg>
+          <svg (click)="like()" *ngIf="data.likes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-900 inline-flex" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+          </svg>
+          {{data.likes.length}}
+        </ng-container>
+        <ng-container>
+          <svg (click)="dislike()" *ngIf="!data.disLikes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+          </svg>
+          <svg (click)="dislike()" *ngIf="data.disLikes.includes(currentUser.id)" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 inline-flex" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" />
+          </svg>
+          &nbsp;{{data.disLikes.length}}
+        </ng-container>
+      </span>
+    </div>
+    <p class="py-1 text-gray-500">{{data.text}}</p>
+    <div class="text-gray-400 space-x-5">
+      <span>
+        {{diffTime(data.date).min < 1 ? 'a few sec ago' : (diffTime(data.date).hour < 1 ? diffTime(data.date).min + ' min ago' : (diffTime(data.date).hour < 24 ? diffTime(data.date).hour + ' hour ago' : (diffTime(data.date).day < 30 ? diffTime(data.date).day + ' days ago' : data.date | date : 'd/M/yy')))}}
+      </span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-flex text-gray-500" (click)="repondreComment()" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+      </svg>
+      <svg (click)="presentReport()" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-flex text-red-400" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="reponseComment.length > 0" class="ml-12">
+  <app-miniature-comment [idComment]="comment.id" [data]="comment" *ngFor="let comment of reponseComment"></app-miniature-comment>
+</div>
+
+<div class="{{data && data.idParent ? '' : 'border-b border-gray-200 mb-5'}}"></div>
