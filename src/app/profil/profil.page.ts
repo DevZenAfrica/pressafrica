@@ -5,6 +5,7 @@ import {AlertService} from '../services/alert.service';
 import {AlertController} from '@ionic/angular';
 import {AuthentificationService} from '../services/authentification.service';
 import {TranslateService} from '@ngx-translate/core';
+import {environment} from '../../environments/environment';
 
 declare function getMsisdn(): any;
 declare function getCountry(): any;
@@ -20,6 +21,7 @@ export class ProfilPage implements OnInit {
 
   isLoading = true;
   user: Utilisateur | any = null;
+  environment = environment;
 
   constructor(private translate: TranslateService, private alertService: AlertService, private userService: UtilisateurService, private alertController: AlertController, private authService: AuthentificationService) {}
 

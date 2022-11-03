@@ -89,6 +89,7 @@ export class ChooseCategoryComponent implements OnInit {
 
   setCategorieSelectGlobal(value) {
     this.storageService.setItem('categorieSelect', value);
+    window.location.reload();
   }
 
   getValueTraduct(texte: string) {

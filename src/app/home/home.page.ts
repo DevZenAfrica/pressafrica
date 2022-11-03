@@ -32,5 +32,17 @@ export class HomePage implements OnInit {
     this.storageService.watchStorage().subscribe((data) => {
       this.categorieSelect = this.storageService.getItem('categorieSelect');
     });
+
+    if(!localStorage.getItem('isReloadApp') || this.getDateGoodFormat(new Date().toString()) !== this.getDateGoodFormat(localStorage.getItem('isReloadApp')))
+    {
+      localStorage.setItem('isReloadApp', (new Date().toString()));
+      setTimeout(() => { window.location.reload(); }, 3000);
+    }
+
+  }
+
+  getDateGoodFormat(date: string) {
+    const dateFormat = new Date(date);
+    return dateFormat.getDate() + '-' + dateFormat.getMonth() + '-' + dateFormat.getFullYear();
   }
 }

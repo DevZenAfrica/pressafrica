@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,23 @@ import {HttpClient} from "@angular/common/http";
 export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
+
+  async getDataWitchApi(link, type: any = 'text') {
+    const headers = new HttpHeaders()
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+    return new Promise<void>((resolve, reject) => {
+      this.httpClient.get(environment.apiCors + '/' + link, {headers, responseType: type}).subscribe({
+        next: (res: any) => {
+          resolve(res);
+        },
+        error: (err: any) => {
+          reject(err);
+        }
+      });
+    });
+  }
 
   async addFileForAdresseId(name: string, adresse: string, file: any ) {
     return new Promise((resolve, reject) => {
