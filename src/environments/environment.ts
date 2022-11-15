@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   appName: 'Press Africa',
   numberVersion: 0,
-  version: '07.11.22-16.05',
+  version: '15.11.22-15.02',
   yearVersion: '2022',
   apiCors: 'https://hidden-castle-88131.herokuapp.com',
   apiGetIpAdress: 'https://api.ipgeolocation.io/ipgeo?apiKey=',

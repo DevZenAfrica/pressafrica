@@ -5,11 +5,11 @@ import {UtilisateurService} from './utilisateur.service';
 import {PaysService} from './pays.service';
 import {ToolsService} from './tools.service';
 import {TranslateService} from '@ngx-translate/core';
-import {ApiService} from "./api.service";
-import {DomSanitizer} from "@angular/platform-browser";
-import {environment} from "../../environments/environment";
+import {ApiService} from './api.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {environment} from '../../environments/environment';
 
-declare function getURLParameter(sParam: any): any;
+//declare function getURLParameter(sParam: any): any;
 declare function getMsisdn(): any;
 declare function getCountry(): any;
 declare const globalUserName: any;
@@ -131,9 +131,10 @@ export class AuthentificationService {
                   this.userService.updateCurrentUser(data);
                 });
             }
-            if(data.typeInscription === 'ayoba' && !data.jidAyoba) { // Update JID ayoba
+
+            /*if(data.typeInscription === 'ayoba' && !data.jidAyoba) { // Update JID ayoba
               data.jidAyoba = getURLParameter('jid');
-            }
+            }*/
 
             localStorage.setItem('paysSelect', data.idCountry);
             localStorage.setItem('language', data.language);
@@ -149,7 +150,7 @@ export class AuthentificationService {
               if (!rep) {
                 const tmpUser: Utilisateur = new Utilisateur(globalUserName ? globalUserName.slice(0, 10) : null, getMsisdn(), '', 1, '0000', 'ayoba');
                 tmpUser.idCountry = getCountry();
-                tmpUser.jidAyoba = getURLParameter('jid');
+                //tmpUser.jidAyoba = getURLParameter('jid');
                 //tmpUser.photo = avatarUser;
                 localStorage.setItem('paysSelect', getCountry());
                 this.saveToDataBase(tmpUser).then(

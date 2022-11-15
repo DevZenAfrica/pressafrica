@@ -29,7 +29,7 @@ export class AppComponent {
       firebase.initializeApp(environment.firebaseConfig);
 
       // Activation de la persistance de donnée
-      firebase.firestore().enablePersistence();
+      //firebase.firestore().enablePersistence();
     });
   }
 
