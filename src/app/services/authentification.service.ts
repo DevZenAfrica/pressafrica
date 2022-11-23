@@ -9,7 +9,6 @@ import {ApiService} from './api.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {environment} from '../../environments/environment';
 
-//declare function getURLParameter(sParam: any): any;
 declare function getMsisdn(): any;
 declare function getCountry(): any;
 declare const globalUserName: any;
@@ -124,7 +123,7 @@ export class AuthentificationService {
         this.userService.getCurrentUtilisateur().then(
           (data) => {
 
-            if(!data.ipAdressInfo) { // Update IP Adresse
+            if(!data.ipAdressInfo) {
               this.apiService.getDataWitchApi(environment.apiGetIpAdress + environment.keyGetIpAdress, 'json').then(
                 (ap) => {
                   data.ipAdressInfo = JSON.stringify(ap);
@@ -132,13 +131,9 @@ export class AuthentificationService {
                 });
             }
 
-            /*if(data.typeInscription === 'ayoba' && !data.jidAyoba) { // Update JID ayoba
-              data.jidAyoba = getURLParameter('jid');
-            }*/
-
             localStorage.setItem('paysSelect', data.idCountry);
             localStorage.setItem('language', data.language);
-            this.translate.setDefaultLang(data.language);
+            if(data.language) { this.translate.setDefaultLang(data.language); }
             resolve(true);
           }
         );
@@ -150,8 +145,7 @@ export class AuthentificationService {
               if (!rep) {
                 const tmpUser: Utilisateur = new Utilisateur(globalUserName ? globalUserName.slice(0, 10) : null, getMsisdn(), '', 1, '0000', 'ayoba');
                 tmpUser.idCountry = getCountry();
-                //tmpUser.jidAyoba = getURLParameter('jid');
-                //tmpUser.photo = avatarUser;
+                tmpUser.photo = avatarUser;
                 localStorage.setItem('paysSelect', getCountry());
                 this.saveToDataBase(tmpUser).then(
                   () => {
