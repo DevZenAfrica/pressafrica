@@ -33,7 +33,8 @@ export class PrintMostHeadlineCommentedComponent implements OnInit, OnChanges {
                     if(data25.length > 0) {
                       pointe.headlinesComment.push({
                         comments : data25.length,
-                        headlineId: doc.id
+                        headlineId: doc.id,
+                        cacheData: doc
                       });
                     }
                   }

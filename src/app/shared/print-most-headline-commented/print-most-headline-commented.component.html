@@ -3,5 +3,5 @@
     <p>{{'9.3' | translate}}</p>
   </div>
 
-  <app-miniature-headline skin="list" [idHeadline]="headline.id" [data]="headline" *ngFor="let headline of trieTableau(headlinesComment)"></app-miniature-headline>
+  <app-miniature-headline skin="list" [idHeadline]="headline.headlineId" [data]="headline.cacheData" *ngFor="let headline of trieTableau(headlinesComment)"></app-miniature-headline>
 </section>

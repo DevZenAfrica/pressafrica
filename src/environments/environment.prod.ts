@@ -2,9 +2,9 @@ export const environment = {
   production: true,
   appName: 'Press Africa',
   numberVersion: 1,
-  version: '23.11.22-10.49',
+  version: '02.12.22-18.52',
   yearVersion: '2022',
-  apiCors: 'https://hidden-castle-88131.herokuapp.com',
+  apiCors: 'https://cors-anywhere-csga2dhzs-dev-opensolution.vercel.app',
   apiGetIpAdress: 'https://api.ipgeolocation.io/ipgeo?apiKey=',
   keyGetIpAdress: 'c9eb1d8aa8d4439b84b57040fd891125',
   firebaseConfig: {
